@@ -1,0 +1,27 @@
+package com.spring.setter;
+
+import java.util.stream.Stream;
+
+//import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class EmployeeMain {
+	public static void main(String[] args) {
+		// create  the Ioc Container
+     	ApplicationContext context = new AnnotationConfigApplicationContext("com.spring.setter");
+//		BeanFactory context = new AnnotationConfigApplicationContext("com.spring.setter");
+//		System.out.println(context.containsBean("employee"));
+		
+		Stream.of(context.getBeanDefinitionNames()).forEach(System.out::println);
+		Employee employee = (Employee)context.getBean("employee");
+		System.out.println(employee);
+		employee = context.getBean("employee", Employee.class);
+		System.out.println(employee);
+		employee = context.getBean(Employee.class);
+		System.out.println(employee); 
+		
+		
+	}
+
+}

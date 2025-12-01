@@ -1,0 +1,11 @@
+package com.spring.autowire;
+
+public class Square implements IShape {
+
+	@Override
+	public void area(int x, int y) {
+		System.out.println(Math.sqrt(x));
+
+	}
+
+}

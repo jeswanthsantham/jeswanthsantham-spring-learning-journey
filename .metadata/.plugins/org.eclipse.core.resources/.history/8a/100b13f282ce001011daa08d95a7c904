@@ -1,0 +1,41 @@
+package com.spring.autowire;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ShapeFactory {
+	@Autowired
+	@Qualifier("rectangle")// by type
+	private IShape shape;
+
+	
+	@Autowired    // by name - the instance var name and the bean name should be same
+	private IShape square; // shape = new square();
+	
+	private IShape nshape;
+	
+	//autowiring by constructor - no need of @autowired annonation
+	public ShapeFactory(@Qualifier("triangle") IShape tshape) {
+		super();
+		this.tshape = tshape;
+	}
+
+
+	public void printArea(String choice, int x, int y) {
+		System.out.println("Printing Area");
+		if(choice.equals("r")) {
+			shape.area(x, y);
+		}else if(choice.equals("t")) {
+			tshape.area(x,y);
+		}else if(choice.equals("s")) {
+			square.area(x, y);
+		}else {
+			System.out.println("wrong choice");
+		}
+		
+
+	}
+
+}

@@ -1,0 +1,14 @@
+package com.spring.autowire;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Square implements IShape {
+
+	@Override
+	public void area(int x, int y) {
+		System.out.println("Area of Square: "+ Math.sqrt(x));
+
+	}
+
+}

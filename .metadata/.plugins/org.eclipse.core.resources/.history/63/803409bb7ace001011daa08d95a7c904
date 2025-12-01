@@ -1,0 +1,11 @@
+package com.spring.autowire;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class ShapeFactory {
+	
+	private IShape shape;
+	
+
+}

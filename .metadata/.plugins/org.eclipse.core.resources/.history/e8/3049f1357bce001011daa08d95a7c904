@@ -1,0 +1,8 @@
+package com.spring.autowire;
+
+public class AutoMain {
+	public static void main(String[] args) {
+		
+	}
+
+}

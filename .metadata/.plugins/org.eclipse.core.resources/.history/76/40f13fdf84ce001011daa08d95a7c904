@@ -1,0 +1,23 @@
+package com.spring.constr;
+
+import java.util.stream.Stream;
+
+//import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class StudentMain {
+	public static void main(String[] args) {
+		// create  the Ioc Container
+     	ApplicationContext context = new AnnotationConfigApplicationContext("com.spring");
+     	Stream.of(context.getBeanDefinitionNames()).forEach(System.out::println);
+
+		Student employee = (Student)context.getBean("student");
+		System.out.println(employee);
+//		
+		
+		
+		
+	}
+
+}
