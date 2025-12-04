@@ -4,7 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,12 @@ import lombok.NoArgsConstructor;
 @Data // getter, setter, tostring, hashcode etc
 @Entity
 //@Table(name="product_detail")
+@NamedQuery(name="findByBrandCat",
+              query="from Product p where p.brand=?1 and p.category=?2")
+@NamedQueries(value = {@NamedQuery(name="findByBrandCategory",
+              query="from Product p where p.brand=?1 and p.category=?2"),
+		@NamedQuery(name="findByCat",
+        query="from Product p where p.brand=?1 ")})
 public class Product {
 
 	@Column(length = 20)

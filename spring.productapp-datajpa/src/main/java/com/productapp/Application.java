@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.productapp.model.Product;
 import com.productapp.model.ProductDto;
 import com.productapp.service.IProductService;
 
@@ -49,18 +48,57 @@ public class Application implements CommandLineRunner {
 		System.out.println();
 //		productservice.deleteProduct(5);
 		
-		System.out.println("By brand");
-		productservice.getByBrand("Cosco").stream().forEach(System.out::println);
-		System.out.println();
-		
-		
-		System.out.println("By lesser price");
-		productservice.getByLesserPrice(3000).stream().forEach(System.out::println);
-		System.out.println();
-		
+//		System.out.println("By brand");
+//		productservice.getByBrand("Cosco").stream().forEach(System.out::println);
+//		System.out.println();
+//		
+//		
+//		System.out.println("By lesser price");
+//		productservice.getByLesserPrice(3000).stream().forEach(System.out::println);
+//		System.out.println();
+//		
 		System.out.println("By categoryandNameContains ");
 		productservice.getBycategoryandNameContains("Sports", "Ball").stream().forEach(System.out::println);
 		System.out.println();
+		
+		System.out.println("By cat");
+		productservice.getByCategory("Sports").stream().forEach(System.out::println);
+		System.out.println();
+		
+		System.out.println("By brand and price ");
+		productservice.getByBrandAndLessPrice("Nike", 2000).stream().forEach(System.out::println);
+		System.out.println();
+		
+		System.out.println("By name contains ");
+		productservice.getByNameContains("ball").stream().forEach(System.out::println);
+		System.out.println();
+		
+		System.out.println("By brand and category");
+		productservice.getByBrandAndCategory("Cosco","Sports").stream().forEach(System.out::println);
+		System.out.println();
+		
+		System.out.println("By greater price ");
+		productservice.getByGreaterPrice(1000).stream().forEach(System.out::println);
+		System.out.println();
+		
+		System.out.println("Update product");
+		productservice.updateProduct(1, 560);
+		System.out.println();
+		
+		System.out.println("Sorting");
+		productservice.getSortedProducts("brand").stream().forEach(System.out::println);
+		System.out.println();
+		
+		System.out.println("Paging");
+		productservice.getPagedProducts(1,4).stream().forEach(System.out::println);
+		System.out.println();
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
