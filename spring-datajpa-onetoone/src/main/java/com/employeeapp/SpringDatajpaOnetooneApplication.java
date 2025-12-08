@@ -31,11 +31,17 @@ public class SpringDatajpaOnetooneApplication implements CommandLineRunner {
 //		addressDto = new AddressDto(null, "Chennai", "TN");
 //		employeeDto = new EmployeeDto("Mona", null, "Mktg", 18000, addressDto);
 //		employeeService.addEmployee(employeeDto);
-//		
-//		System.out.println();
+//		addressDto = new AddressDto(null, "Hyd", "TG");
+//		employeeDto = new EmployeeDto("Achu", null, "Dev", 25000, addressDto);
+//		employeeService.addEmployee(employeeDto);
+//		addressDto = new AddressDto(null, "Tiru", "AP");
+//		employeeDto = new EmployeeDto("Jeshu", null, "Dev", 24000, addressDto);
+//		employeeService.addEmployee(employeeDto);
+		
+		System.out.println();
 		System.out.println();
 		employeeService.getAll("empName").forEach(emp->System.out.println(emp));
-		
+//		
 		System.out.println();
 		employeeService.getByDepartment("Admin").forEach(emp->System.out.println(emp));
 		System.out.println();
