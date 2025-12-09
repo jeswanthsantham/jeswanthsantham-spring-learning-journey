@@ -1,7 +1,8 @@
 package com.restaurantapp.model;
 
 public enum Cuisine {
-	NI("NORTH INDIAN"), SI("SOUTH INDIAN"), CHINESE("CHINESE"), ITALIAN("ITALIAN"), MEXICAN("MEXICAN");
+	NI("NORTH INDIAN"), SI("SOUTH INDIAN"), CHINESE("CHINESE"),
+	ITALIAN("ITALIAN"), MEXICAN("MEXICAN");
 
 	private String Cuisine;
 

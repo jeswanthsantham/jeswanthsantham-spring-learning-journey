@@ -1,5 +1,7 @@
 package com.restaurantapp.model;
 
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,9 @@ public class RestaurantDto {
 	private Integer restaurantId;
 	private String city;
 	private String cuisine;
-	private String category; // veg,nonveg
+	private Category category; // veg,nonveg
+	
+	private Set<MenuItemDto> menuItems;
 	
 	
 

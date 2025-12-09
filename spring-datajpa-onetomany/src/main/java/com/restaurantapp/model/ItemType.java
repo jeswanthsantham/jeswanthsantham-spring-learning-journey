@@ -12,9 +12,7 @@ public enum ItemType {
 	DESSERT("DESSERT"),
 	BF("BREAKFAST");
 	
-	String type;
+	private String type;
 	
 	
-	
-
 }
