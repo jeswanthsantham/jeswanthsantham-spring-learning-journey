@@ -1,49 +1,73 @@
 package com.restaurantapp.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restaurantapp.model.Category;
+import com.restaurantapp.model.MenuItemDto;
+import com.restaurantapp.model.Restaurant;
 import com.restaurantapp.model.RestaurantDto;
+import com.restaurantapp.repository.IRestaurantRepository;
 
 import lombok.RequiredArgsConstructor;
 
 
 @Service
-@RequiredArgsConstructor
 public class RestaurantServiceImpl implements IRestaurantService{
 	
-	private final ModelMapper mapper;
+	@Autowired
+	private ModelMapper mapper;
+	@Autowired
+	private IRestaurantRepository restaurantRepository;
 
 	@Override
-	public void addRestuarant(RestaurantDto restaurantDto) {
-		// TODO Auto-generated method stub
-		
+	public void addRestaurant(RestaurantDto restaurantDto) {
+       Restaurant restaurant = mapper.map(restaurantDto,Restaurant.class);
+       restaurantRepository.save(restaurant);
+       
 	}
 
 	@Override
-	public void updateRestuarant(RestaurantDto restaurantDto) {
-		// TODO Auto-generated method stub
-		
+	public void updateRestaurant(RestaurantDto restaurantDto) {
+		Restaurant restaurant = mapper.map(restaurantDto,Restaurant.class);
+	       restaurantRepository.save(restaurant);
 	}
 
 	@Override
-	public void deleteRestuarant(RestaurantDto restaurantDto) {
-		// TODO Auto-generated method stub
-		
+	public void deleteRestaurant(int restaurantId) {
+		 restaurantRepository.deleteById(restaurantId);		
 	}
 
 	@Override
 	public List<RestaurantDto> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return restaurantRepository.findAll()
+		.stream()
+		.map(restaurant->{
+			RestaurantDto restaurantDto = mapper.map(restaurant, RestaurantDto.class);
+			Set<MenuItemDto> menuItems = restaurant.getMenuItems().stream()
+			.map(menu->mapper.map(menu, MenuItemDto.class))
+			.collect(Collectors.toSet());
+			restaurantDto.setMenuItems(menuItems);
+			return restaurantDto;
+			})
+		.toList();
+		
+	
+		
 	}
 
 	@Override
 	public RestaurantDto getById(int restaurantId) {
-		// TODO Auto-generated method stub
+		Optional<Restaurant> opt = restaurantRepository.findById(restaurantId);
+		if (opt.isPresent()) {
+			return mapper.map(opt.get(), RestaurantDto.class);
+			}
 		return null;
 	}
 

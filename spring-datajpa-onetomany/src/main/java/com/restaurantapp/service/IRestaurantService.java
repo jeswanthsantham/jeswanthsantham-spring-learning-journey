@@ -7,9 +7,9 @@ import com.restaurantapp.model.RestaurantDto;
 
 public interface IRestaurantService {
 	
-	void addRestuarant(RestaurantDto restaurantDto);
-	void updateRestuarant(RestaurantDto restaurantDto);
-	void deleteRestuarant(RestaurantDto restaurantDto);
+	void addRestaurant(RestaurantDto restaurantDto);
+	void updateRestaurant(RestaurantDto restaurantDto);
+	void deleteRestaurant(int restaurantId);
 	List<RestaurantDto> getAll();
 	RestaurantDto getById(int restaurantId);
 	
@@ -21,6 +21,9 @@ public interface IRestaurantService {
 	List<RestaurantDto> getByCategoryItemName(Category category,String itemName);//veg, paneer
 	List<RestaurantDto> getByItemNameContains(String itemName);// paneer
 	List<RestaurantDto> getByItemNameLessPrice(String itemName,double price);
+	
+	
+//	List<String> getCuisine(String restaurantName);
 	
 	
 	

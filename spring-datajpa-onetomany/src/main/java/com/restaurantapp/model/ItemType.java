@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum ItemType {
 	
 	STARTER("STARTER"), 
-	MAIN("MAIN_COURSE"),
+	MAINCOURSE("MAIN_COURSE"),
 	DESSERT("DESSERT"),
 	BF("BREAKFAST");
 	
