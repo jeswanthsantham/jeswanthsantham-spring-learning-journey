@@ -15,8 +15,6 @@ import com.restaurantapp.model.Restaurant;
 import com.restaurantapp.model.RestaurantDto;
 import com.restaurantapp.repository.IRestaurantRepository;
 
-import lombok.RequiredArgsConstructor;
-
 
 @Service
 public class RestaurantServiceImpl implements IRestaurantService{
@@ -66,7 +64,13 @@ public class RestaurantServiceImpl implements IRestaurantService{
 	public RestaurantDto getById(int restaurantId) {
 		Optional<Restaurant> opt = restaurantRepository.findById(restaurantId);
 		if (opt.isPresent()) {
-			return mapper.map(opt.get(), RestaurantDto.class);
+			Restaurant restaurant = opt.get();
+			RestaurantDto restaurantDto = mapper.map(restaurant, RestaurantDto.class);
+			Set<MenuItemDto> menuItems = restaurant.getMenuItems().stream()
+			.map(menu->mapper.map(menu, MenuItemDto.class))
+			.collect(Collectors.toSet());
+			restaurantDto.setMenuItems(menuItems);
+			return restaurantDto;
 			}
 		return null;
 	}
@@ -91,8 +95,18 @@ public class RestaurantServiceImpl implements IRestaurantService{
 
 	@Override
 	public List<RestaurantDto> getByCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+		return restaurantRepository.findByCategory(category)
+				.stream()
+				.map(restaurant->{
+					RestaurantDto restaurantDto = mapper.map(restaurant, RestaurantDto.class);
+					Set<MenuItemDto> menuItems = restaurant.getMenuItems().stream()
+					.map(menu->mapper.map(menu, MenuItemDto.class))
+					.collect(Collectors.toSet());
+					restaurantDto.setMenuItems(menuItems);
+					return restaurantDto;
+					})
+				.toList();
+		
 	}
 
 	@Override
@@ -103,14 +117,32 @@ public class RestaurantServiceImpl implements IRestaurantService{
 
 	@Override
 	public List<RestaurantDto> getByCategoryItemName(Category category, String itemName) {
-		// TODO Auto-generated method stub
-		return null;
+		return restaurantRepository.findByCategoryItemName(category, itemName)
+				.stream()
+				.map(restaurant->{
+					RestaurantDto restaurantDto = mapper.map(restaurant, RestaurantDto.class);
+					Set<MenuItemDto> menuItems = restaurant.getMenuItems().stream()
+					.map(menu->mapper.map(menu, MenuItemDto.class))
+					.collect(Collectors.toSet());
+					restaurantDto.setMenuItems(menuItems);
+					return restaurantDto;
+					})
+				.toList();
 	}
 
 	@Override
 	public List<RestaurantDto> getByItemNameContains(String itemName) {
-		// TODO Auto-generated method stub
-		return null;
+		return restaurantRepository.findByItemNameContains("%"+itemName+"%")
+				.stream()
+				.map(restaurant->{
+					RestaurantDto restaurantDto = mapper.map(restaurant, RestaurantDto.class);
+					Set<MenuItemDto> menuItems = restaurant.getMenuItems().stream()
+					.map(menu->mapper.map(menu, MenuItemDto.class))
+					.collect(Collectors.toSet());
+					restaurantDto.setMenuItems(menuItems);
+					return restaurantDto;
+					})
+				.toList();
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class Restaurant {
 	@Enumerated(EnumType.STRING)
 	private Category category; // veg,nonveg
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.EAGER)
 	@JoinColumn(name = "restaurant_id")
 	private Set<MenuItem> menuItems;
 	
