@@ -1,0 +1,10 @@
+#datasource specific properties
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/springprojects
+    username: root
+    password: Tiger
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
