@@ -8,5 +8,7 @@
 </head>
 <body>
 ${message}
+<br>
+${date}
 </body>
 </html>
