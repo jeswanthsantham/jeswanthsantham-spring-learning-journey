@@ -1,0 +1,78 @@
+package com.deliveryapp.model;
+
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
+public class Restaurant {
+	private String restaurantName;
+	@Id
+	@GeneratedValue(generator = "rest_gen",strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "rest_gen",sequenceName = "restaurant_seq",initialValue = 1,allocationSize = 1)
+	private Integer restaurantId;
+	
+	@Enumerated(EnumType.STRING)
+	private Category category; //veg or nonveg
+	
+	private double ratings;
+	
+	@OneToOne(cascade = CascadeType.ALL) //save child while saving parent
+	@JoinColumn(name = "address_id") // to give a proper column name
+	private Address address;
+	
+	@OneToMany(cascade = CascadeType.ALL) //save child while saving parent
+	@JoinColumn(name= "restaurant_id") // restaurant_id added to menu_item table
+	private Set<MenuItem> menuItems; 
+	
+	@ManyToOne
+	@JoinColumn(name = "brand_id") // to give a proper column name
+    private Brand brand;
+	
+    @ManyToMany
+	@JoinTable(name="restaurant_cuisine",
+	           joinColumns = @JoinColumn(name="restaurant_id"),
+			   inverseJoinColumns =@JoinColumn(name="cuisine_id"))
+	private Set<Cuisine> cuisines;
+	
+	@ElementCollection
+	@CollectionTable(name="restaurant_serviceType",joinColumns = @JoinColumn(name="restaurant_id"))
+	private Set<String> serviceType; //dining,delivery,nightlife
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
