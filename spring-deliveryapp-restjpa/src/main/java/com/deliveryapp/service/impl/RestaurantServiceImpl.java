@@ -3,7 +3,9 @@ package com.deliveryapp.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.deliveryapp.exception.RestaurantNotFoundException;
 import com.deliveryapp.mapper.DeliveryMapper;
 import com.deliveryapp.model.Restaurant;
 import com.deliveryapp.model.RestaurantRequest;
@@ -15,45 +17,44 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RestaurantServiceImpl implements IRestaurantService {
 	
 	private final DeliveryMapper mapper;
-	private final IRestaurantRepository repository;
+	private final IRestaurantRepository restaurantRepository;
 
 	@Override
 	public void addRestaurant(RestaurantRequest restaurantRequest) {
-		Restaurant restaurant = mapper.toRestaurantEntity(restaurantRequest);
-		repository.save(restaurant);
+		restaurantRepository.save(mapper.toRestaurantEntity(restaurantRequest));
 		
 	}
 
 	@Override
 	public void updateRestaurant(RestaurantRequest restaurantRequest) {
-		// TODO Auto-generated method stub
-		
+		restaurantRepository.save(mapper.toRestaurantEntity(restaurantRequest));		
 	}
 
 	@Override
 	public void deleteRestaurant(int restaurantId) {
-		// TODO Auto-generated method stub
-		
+		restaurantRepository.deleteById(restaurantId);		
 	}
 
 	@Override
 	public List<RestaurantResponse> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return restaurantRepository.findAll().stream()
+				.map(restaurant->mapper.toRestaurantResponse(restaurant))
+				.toList();
 	}
 
 	@Override
 	public RestaurantResponse getById(int restaurantId) {
-	   
-		return null;
+	    Restaurant restaurant = restaurantRepository.findById(restaurantId)
+	    		.orElseThrow(()-> new RestaurantNotFoundException("Invalid Id"));
+		return mapper.toRestaurantResponse(restaurant);
 	}
 
 	@Override
 	public List<RestaurantResponse> getByCity(String city) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -1,5 +1,6 @@
 package com.deliveryapp.model;
 
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -8,6 +9,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,12 +22,17 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
+@ToString
 public class Restaurant {
 	private String restaurantName;
 	@Id
@@ -42,7 +49,7 @@ public class Restaurant {
 	@JoinColumn(name = "address_id") // to give a proper column name
 	private Address address;
 	
-	@OneToMany(cascade = CascadeType.ALL) //save child while saving parent
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER) //save child while saving parent
 	@JoinColumn(name= "restaurant_id") // restaurant_id added to menu_item table
 	private Set<MenuItem> menuItems; 
 	
@@ -50,15 +57,32 @@ public class Restaurant {
 	@JoinColumn(name = "brand_id") // to give a proper column name
     private Brand brand;
 	
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="restaurant_cuisine",
 	           joinColumns = @JoinColumn(name="restaurant_id"),
 			   inverseJoinColumns =@JoinColumn(name="cuisine_id"))
 	private Set<Cuisine> cuisines;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name="restaurant_serviceType",joinColumns = @JoinColumn(name="restaurant_id"))
 	private Set<String> serviceType; //dining,delivery,nightlife
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(restaurantId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Restaurant other = (Restaurant) obj;
+		return Objects.equals(restaurantId, other.restaurantId);
+	}
 	
 	
 }

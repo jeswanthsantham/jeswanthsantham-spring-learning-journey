@@ -1,6 +1,9 @@
 package com.deliveryapp.model;
 
+import java.util.Objects;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,12 +13,15 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @ToString(exclude = "restaurants")
 public class Brand {
@@ -26,7 +32,28 @@ public class Brand {
 	private String brandName; 
 	
 	@OneToMany(mappedBy="brand")
+	@JsonIgnore
 	private Set<Restaurant> restaurants;
+
+	
+	//
+	@Override
+	public int hashCode() {
+		return Objects.hash(brandId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Brand other = (Brand) obj;
+		return Objects.equals(brandId, other.brandId);
+	}
+	
 }
 
 

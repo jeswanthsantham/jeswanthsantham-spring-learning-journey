@@ -3,42 +3,52 @@ package com.deliveryapp.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.deliveryapp.mapper.DeliveryMapper;
+import com.deliveryapp.model.Cuisine;
 import com.deliveryapp.model.CuisineRequest;
 import com.deliveryapp.model.CuisineResponse;
+import com.deliveryapp.repository.ICuisineRepository;
 import com.deliveryapp.service.ICuisineService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class CuisineServiceImpl implements ICuisineService{
+	
+	private final ICuisineRepository cuisineRepository;
+	private final DeliveryMapper mapper;
 
 	@Override
 	public void addCuisine(CuisineRequest cuisineRequest) {
-		// TODO Auto-generated method stub
-		
+       cuisineRepository.save(mapper.toCuisineEntity(cuisineRequest));		
 	}
 
 	@Override
 	public void updateCuisine(CuisineRequest cuisineRequest) {
-		// TODO Auto-generated method stub
-		
+		cuisineRepository.save(mapper.toCuisineEntity(cuisineRequest));			
 	}
 
 	@Override
 	public void deleteCuisine(int cuisineId) {
-		// TODO Auto-generated method stub
-		
+		cuisineRepository.deleteById(cuisineId);		
 	}
 
 	@Override
 	public List<CuisineResponse> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return cuisineRepository.findAll().stream()
+				.map(cuisine->mapper.toCuisineResponse(cuisine))
+				.toList();
 	}
 
 	@Override
 	public CuisineResponse getById(int cuisineId) {
-		// TODO Auto-generated method stub
-		return null;
+		Cuisine cusine= cuisineRepository.findById(cuisineId)
+				.orElseThrow(()->new RuntimeException("Invalid Id"));
+		return mapper.toCuisineResponse(cusine);
 	}
 
 	

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class MenuItemRequest {
+	private Integer itemId;
 	private String itemName;
 	private double price;
 	private String menuType; //breakfast,lunch,dessert
