@@ -19,6 +19,7 @@ import com.deliveryapp.model.RestaurantRequest;
 import com.deliveryapp.model.RestaurantResponse;
 import com.deliveryapp.service.IRestaurantService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,11 +27,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RestaurantController {
 	
+	//To run the swagger-ui
+//	http://localhost:8080/swagger-ui/index.html
+	
 	private final IRestaurantService restaurantService;
 	
 	// http://localhost:8080/delivery-api/v1/restaurants
 	@PostMapping("/restaurants")
-	ResponseEntity<Void> createRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
+	ResponseEntity<Void> createRestaurant(@RequestBody @Valid RestaurantRequest restaurantRequest) {
 		restaurantService.addRestaurant(restaurantRequest);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add("description", "Creating a list of restaurants "+restaurantRequest);

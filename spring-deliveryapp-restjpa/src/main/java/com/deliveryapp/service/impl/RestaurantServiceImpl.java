@@ -55,7 +55,11 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
 	@Override
 	public List<RestaurantResponse> getByCity(String city) {
-		return null;
+		List<Restaurant> restaurants = restaurantRepository.findByCity(city);
+		if (restaurants.isEmpty())
+			throw new RestaurantNotFoundException("Invalid Id");
+		return restaurants.stream().map(restaurant -> mapper.toRestaurantResponse(restaurant)).toList();
+
 	}
 
 }
