@@ -25,7 +25,7 @@ public class ApiUserController {
 	private final ApiUserServiceImpl userServiceImpl;
 	
 	
-	@PostMapping("/apiusers")
+	@PostMapping("/apiusers/register")
 	ResponseEntity<Void> createUser(@RequestBody ApiUserRequest userRequest){
 		
 		String password = userRequest.getPassword();

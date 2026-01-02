@@ -29,7 +29,7 @@ public class CuisineController {
 	private final ICuisineService cuisineService;
 
 	// http://localhost:8080/delivery-api/v1/cuisines
-	@PostMapping("/cuisines")
+	@PostMapping("/admin/cuisines")
 	ResponseEntity<Void> addCuisine(@RequestBody CuisineRequest cuisineRequest) {
 		cuisineService.addCuisine(cuisineRequest);
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -39,21 +39,21 @@ public class CuisineController {
 
 	}
 	// http://localhost:8080/delivery-api/v1/cuisines
-		@PutMapping("/cuisines")
+		@PutMapping("/admin/cuisines")
 		ResponseEntity<Void> updateCuisine(@RequestBody CuisineRequest cuisineRequest) {
 			cuisineService.updateCuisine(cuisineRequest);
 			
 			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 		// http://localhost:8080/delivery-api/v1/cuisines/cuisineid/1
-		@DeleteMapping("/cuisines/cuisineid/{cuisinesId}")
+		@DeleteMapping("/admin/cuisines/cuisineid/{cuisinesId}")
 		ResponseEntity<Void> deleteCuisine(@PathVariable int cuisineId) {
 			cuisineService.deleteCuisine(cuisineId);
 			return ResponseEntity.ok().build();
 	}
 
 		// http://localhost:8080/delivery-api/v1/cuisines
-		@GetMapping("/cuisines")
+		@GetMapping("/admin/cuisines")
 		ResponseEntity<List<CuisineResponse>> getAll() {
 			List<CuisineResponse> cuisines= cuisineService.getAll();
 			//header,status,body

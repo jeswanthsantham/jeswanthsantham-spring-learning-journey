@@ -33,7 +33,7 @@ public class RestaurantController {
 	private final IRestaurantService restaurantService;
 	
 	// http://localhost:8080/delivery-api/v1/restaurants
-	@PostMapping("/restaurants")
+	@PostMapping("/admin/restaurants")
 	ResponseEntity<Void> createRestaurant(@RequestBody @Valid RestaurantRequest restaurantRequest) {
 		restaurantService.addRestaurant(restaurantRequest);
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -44,7 +44,7 @@ public class RestaurantController {
 	
 	
 	// http://localhost:8080/delivery-api/v1/restaurants
-	@PutMapping("/restaurants")
+	@PutMapping("/admin/restaurants")
 	ResponseEntity<Void> updateRestaurant(@RequestBody RestaurantRequest restaurantRequest) {
 		restaurantService.updateRestaurant(restaurantRequest);
 		
@@ -52,7 +52,7 @@ public class RestaurantController {
 	}
 
 	// http://localhost:8080/delivery-api/v1/restaurants/restaurantid/1
-	@DeleteMapping("/restaurants/restaurantid/{restaurantId}")
+	@DeleteMapping("/admin/restaurants/restaurantid/{restaurantId}")
 	ResponseEntity<Void> deleteRestaurant(@PathVariable int restaurantId) {
 		restaurantService.deleteRestaurant(restaurantId);
 		return ResponseEntity.ok().build();

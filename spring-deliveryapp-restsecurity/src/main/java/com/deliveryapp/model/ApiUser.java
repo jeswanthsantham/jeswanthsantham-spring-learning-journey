@@ -34,7 +34,7 @@ public class ApiUser implements UserDetails {
 	private Long userId;
 	
 	@ElementCollection
-	@CollectionTable(name="user_roles",
+	@CollectionTable(name="apiuser_roles",
 	                 joinColumns = @JoinColumn(name="role"))
 	
 	private Set<String> roles;

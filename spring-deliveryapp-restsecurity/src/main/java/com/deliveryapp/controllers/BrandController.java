@@ -29,7 +29,7 @@ public class BrandController {
 	private final IBrandService brandService;
 
 	// http://localhost:8080/delivery-api/v1/brands
-	@PostMapping("/brands")
+	@PostMapping("/admin/brands")
 	ResponseEntity<Void> addBrand(@RequestBody BrandRequest brandRequest) {
 		brandService.addBrand(brandRequest);
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -39,21 +39,21 @@ public class BrandController {
 
 	}
 	// http://localhost:8080/delivery-api/v1/brands
-		@PutMapping("/brands")
+		@PutMapping("/admin/brands")
 		ResponseEntity<Void> updateBrand(@RequestBody BrandRequest brandRequest) {
 			brandService.updateBrand(brandRequest);
 			
 			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 	}
 		// http://localhost:8080/delivery-api/v1/brands/brandid/1
-		@DeleteMapping("/brands/brandid/{brandsId}")
+		@DeleteMapping("/admin/brands/brandid/{brandsId}")
 		ResponseEntity<Void> deleteBrand(@PathVariable int brandId) {
 			brandService.deleteBrand(brandId);
 			return ResponseEntity.ok().build();
 	}
 
 		// http://localhost:8080/delivery-api/v1/brands
-		@GetMapping("/brands")
+		@GetMapping("/admin/brands")
 		ResponseEntity<List<BrandResponse>> getAll() {
 			List<BrandResponse> brands= brandService.getAll();
 			//header,status,body
@@ -64,7 +64,7 @@ public class BrandController {
 	}
 
 		// http://localhost:8080/delivery-api/v1/brands/id?brandId=2
-		@GetMapping("/brands/id")
+		@GetMapping("/admin/brands/id")
 		ResponseEntity<BrandResponse> getById(@RequestParam int brandId) {
 			BrandResponse brand = brandService.getById(brandId);
 			HttpHeaders httpHeaders = new HttpHeaders();
