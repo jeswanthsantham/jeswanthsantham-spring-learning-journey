@@ -27,7 +27,7 @@ public class ApiUserController {
 	
 	@PostMapping("/apiusers/register")
 	ResponseEntity<Void> createUser(@RequestBody ApiUserRequest userRequest){
-		
+		System.out.println(userRequest);
 		String password = userRequest.getPassword();
 		String encodedPassword = passwordEncoder.encode(password);
 		userRequest.setPassword(encodedPassword);

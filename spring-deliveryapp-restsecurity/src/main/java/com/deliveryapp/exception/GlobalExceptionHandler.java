@@ -17,7 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
+//@ControllerAdvice
 // to handle exceptions across all controllers
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
