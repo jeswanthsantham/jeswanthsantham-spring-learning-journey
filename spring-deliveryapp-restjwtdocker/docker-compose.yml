@@ -1,0 +1,24 @@
+services:
+  delivery-restapi:
+    image: delivery-app 
+    build: .
+    container_name: delivery-restcontainer
+    ports:
+     - 8080:8080
+    networks:
+      - delivery-network
+    depends_on:
+      - mysql
+  mysql:
+     image: mysql:8
+     container_name: mysqlcontainer
+     ports:
+        - 3307:3307
+     environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jfsjulydb
+     networks:
+      - delivery-network
+networks:
+  delivery-network:
+   
